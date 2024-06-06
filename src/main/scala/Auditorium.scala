@@ -1,0 +1,1 @@
+case class Auditorium(number: String, capacity: Int)
