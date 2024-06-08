@@ -1,11 +1,12 @@
 import scala.io.StdIn.readLine
 import UniversityManager._
 import FileOperations._
+import ScheduleOperations._
 
 object Menu {
   def scheduleMenu(): Unit = {
-    var continueMenu = true
-    while (continueMenu) {
+    var continue = true
+    while (continue) {
       println("Меню управления расписанием:")
       println("1. Добавить расписание")
       println("2. Удалить расписание")
@@ -16,13 +17,63 @@ object Menu {
 
       choice match {
         case "1" =>
-          addScheduleMenu()
+          println("Выберите день (M, T, W, Th, F):")
+          val day = readLine().trim.toUpperCase
+          println("Выберите время (1 - 7:30, 2 - 9:15, 3 - 11:00, 4 - 12:40, 5 - 14:15):")
+          val timeInput = readLine().trim
+          val time = timeInput match {
+            case "1" => "7:30"
+            case "2" => "9:15"
+            case "3" => "11:00"
+            case "4" => "12:40"
+            case "5" => "14:15"
+            case _ => ""
+          }
+          if (time.isEmpty) {
+            println("Неверный выбор времени.")
+          } else {
+            println("Выберите преподавателя:")
+            viewTeachers()
+            val teacher = readLine().trim
+            println("Выберите группу:")
+            viewGroups()
+            val group = readLine().trim
+            println("Выберите аудиторию:")
+            viewAuditoriums()
+            val auditorium = readLine().trim
+            addSchedule(day, time, teacher, group, auditorium)
+          }
         case "2" =>
-          removeScheduleMenu()
+          println("Выберите день (M, T, W, Th, F):")
+          val day = readLine().trim.toUpperCase
+          println("Выберите время (1 - 7:30, 2 - 9:15, 3 - 11:00, 4 - 12:40, 5 - 14:15):")
+          val timeInput = readLine().trim
+          val time = timeInput match {
+            case "1" => "7:30"
+            case "2" => "9:15"
+            case "3" => "11:00"
+            case "4" => "12:40"
+            case "5" => "14:15"
+            case _ => ""
+          }
+          if (time.isEmpty) {
+            println("Неверный выбор времени.")
+          } else {
+            println("Выберите преподавателя:")
+            viewTeachers()
+            val teacher = readLine().trim
+            println("Выберите группу:")
+            viewGroups()
+            val group = readLine().trim
+            println("Выберите аудиторию:")
+            viewAuditoriums()
+            val auditorium = readLine().trim
+            removeSchedule(day, time, teacher, group, auditorium)
+          }
         case "3" =>
           viewSchedule()
         case "4" =>
-          continueMenu = false
+          continue = false
         case _ =>
           println("Неверный выбор, попробуйте снова.")
       }

@@ -5,7 +5,6 @@ object UniversityManager {
   var auditoriums: List[Auditorium] = List()
   var groups: List[Group] = List()
   var teachers: List[Teacher] = List()
-  var schedule: List[Schedule] = List()
 
   def addAuditorium(number: String, capacity: Int): Unit = {
     if (isValidAuditoriumNumber(number)) {
@@ -70,41 +69,6 @@ object UniversityManager {
     } else {
       println("Список преподавателей:")
       teachers.foreach(teacher => println(s"Фамилия: ${teacher.surname}"))
-    }
-  }
-
-  def addSchedule(day: String, time: String, teacher: String, group: String, auditorium: String): Unit = {
-    if (isValidScheduleEntry(day, time, teacher, group, auditorium) && isAvailableScheduleSlot(day, time, auditorium)) {
-      schedule = Schedule(day, time, teacher, group, auditorium) :: schedule
-      println("Занятие успешно добавлено в расписание.")
-    } else {
-      println("Ошибка: некорректные данные для добавления занятия.")
-    }
-  }
-
-  def removeSchedule(day: String, time: String, teacher: String, group: String, auditorium: String): Unit = {
-    schedule = schedule.filterNot(entry =>
-      entry.day == day &&
-        entry.time == time &&
-        entry.teacher == teacher &&
-        entry.group == group &&
-        entry.auditorium == auditorium
-    )
-    println("Занятие успешно удалено из расписания.")
-  }
-
-  def viewSchedule(): Unit = {
-    if (schedule.isEmpty) {
-      println("Расписание пусто.")
-    } else {
-      println("Расписание:")
-      println("-------------------------------------------------------------------------------")
-      println("| День     | Время      | Преподаватель | Группа         | Аудитория     |")
-      println("-------------------------------------------------------------------------------")
-      schedule.foreach(entry =>
-        println(s"| ${entry.day}  | ${entry.time}  | ${entry.teacher}          | ${entry.group}        | ${entry.auditorium}     |")
-      )
-      println("-------------------------------------------------------------------------------")
     }
   }
 

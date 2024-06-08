@@ -14,8 +14,4 @@ object Utils {
   def isValidScheduleEntry(day: String, time: String, teacher: String, group: String, auditorium: String): Boolean = {
     isValidTeacherSurname(teacher) && isValidGroupName(group) && isValidAuditoriumNumber(auditorium)
   }
-
-  def isAvailableScheduleSlot(day: String, time: String, auditorium: String): Boolean = {
-    !UniversityManager.schedule.exists(entry => entry.day == day && entry.time == time && entry.auditorium == auditorium)
-  }
 }
